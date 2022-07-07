@@ -6,7 +6,7 @@ With the goal of recovering high-quality image content from its degraded version
 
 Conventional image restoration and enhancement pipelines either stick to the full resolution features along the network hierarchy or use an encoder-decoder architecture. The first approach helps retain precise spatial details, while the latter one provides better contextualized representations. However, these methods can satisfy only one of the above two requirements, although real-world image restoration tasks demand a combination of both conditioned on the given input sample. MIRNet is a novel architecture whose main branch is dedicated to full resolution processing and the complementary set of parallel branches provides better contextualized features. It proposes a novel mechanism to learn relationships between features within each branch as well as across multiscale branches.
 
-![Enhancement-Samples](C:\Users\soumy\Desktop\F\Enhancement-Samples.png)
+![Enhancement-Samples](Enhancement-Samples.png)
 
 <div align="center">Figure 1. MIRNET Enhancement Samples</div>
 
@@ -22,7 +22,7 @@ First, YOLO is extremely fast. Since we frame detection as a regression problem,
 
 The network uses features from the entire image to predict each bounding box. It  also predicts all bounding boxes across all classes for an image simultaneously. This  means the network reasons globally about the full image and all the objects in the  image. The YOLO design enables end-to-end training and real-time speeds while  maintaining high average precision. 
 
-![Detection-Samples](C:\Users\soumy\Desktop\F\Detection-Samples.png)
+![Detection-Samples](Detection-Samples.png)
 
 <div align="center">Figure 2. YOLO Detection Samples</div>
 
