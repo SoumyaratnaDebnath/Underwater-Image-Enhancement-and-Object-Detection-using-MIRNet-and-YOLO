@@ -1,4 +1,4 @@
-# Under Water Image Enhancement and Object Detection using MIRNet and YOLO
+# Underwater Image Enhancement and Object Detection using MIRNet and YOLO
 
 ## MIRNet Image Enhancement
 
