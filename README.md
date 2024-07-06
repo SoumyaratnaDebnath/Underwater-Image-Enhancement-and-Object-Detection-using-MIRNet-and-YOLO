@@ -1,31 +1,81 @@
 # Underwater Image Enhancement and Object Detection using MIRNet and YOLO
 
-## MIRNet Image Enhancement
+### Abstract
 
-With the goal of recovering high-quality image content from its degraded version, image restoration enjoys numerous applications, such as in surveillance, computational photography, medical imaging, and remote sensing. Recently, convolutional neural networks (CNNs) have achieved dramatic improvements over conventional approaches for image restoration task. Existing CNN-based methods typically operate either on full-resolution or on progressively low-resolution representations. In the former case, spatially precise but contextually less robust results are achieved, while in the latter case, semantically reliable but spatially less accurate outputs are generated. MIRNet is a novel architecture with the collective goals of maintaining spatially precise high-resolution representations through the entire network, and receiving strong contextual information from the low-resolution representations. The core approach is a multi-scale residual block containing several key elements: (a) parallel multi-resolution convolution streams for extracting multi-scale features, (b) information exchange across the multiresolution streams, (c) spatial and channel attention mechanisms for capturing contextual information, and (d) attention based multi-scale feature aggregation. In a nutshell, the approach learns an enriched set of features that combines contextual information from multiple scales, while simultaneously preserving the highresolution spatial details. The source code and pre-trained models are available at MIRNet repository https://github.com/swz30/MIRNet. 
+<p style="text-align:justify;">With the goal of recovering high-quality image content from its degraded version, image restoration finds numerous applications in fields such as surveillance, computational photography, medical imaging, and remote sensing. Recently, convolutional neural networks (CNNs) have significantly improved the image restoration process. Conventional CNN-based methods typically operate either on full-resolution or progressively low-resolution representations. While the former achieves spatial precision but lacks contextual robustness, the latter provides semantically reliable but spatially less accurate outputs. MIRNet is a novel architecture designed to maintain spatially precise high-resolution representations throughout the network while extracting strong contextual information from low-resolution representations. The core approach involves a multi-scale residual block featuring parallel multi-resolution convolution streams, information exchange across these streams, spatial and channel attention mechanisms, and attention-based multi-scale feature aggregation. This approach learns enriched features that combine contextual information from multiple scales while preserving high-resolution spatial details. The source code and pre-trained models are available at the MIRNet repository: https://github.com/swz30/MIRNet.</p>
 
-Conventional image restoration and enhancement pipelines either stick to the full resolution features along the network hierarchy or use an encoder-decoder architecture. The first approach helps retain precise spatial details, while the latter one provides better contextualized representations. However, these methods can satisfy only one of the above two requirements, although real-world image restoration tasks demand a combination of both conditioned on the given input sample. MIRNet is a novel architecture whose main branch is dedicated to full resolution processing and the complementary set of parallel branches provides better contextualized features. It proposes a novel mechanism to learn relationships between features within each branch as well as across multiscale branches.
+### Introduction
 
-![Enhancement-Samples](Enhancement-Samples.png)
+<p style="text-align:justify;">Image restoration and enhancement are critical tasks in computer vision, aimed at recovering high-quality images from degraded inputs. Applications of these tasks span across various fields including surveillance, computational photography, medical imaging, and remote sensing. Traditional image restoration pipelines often utilize either full-resolution processing or encoder-decoder architectures. While full-resolution processing retains precise spatial details, encoder-decoder architectures offer better contextual representations. However, these methods fail to satisfy both requirements simultaneously, which is essential for real-world image restoration tasks.</p>
 
-<div align="center">Figure 1. MIRNET Enhancement Samples</div>
+### Methodology
 
-## YOLO Object Detection
+#### MIRNet Architecture
 
-YOLO is an abbreviation for the term ‘You Only Look Once’. This is an algorithm  that detects and recognizes various objects in a picture (in real-time). Object  detection in YOLO is done as a regression problem and provides the class  probabilities of the detected images. YOLO algorithm employs convolutional neural  networks (CNN) to detect objects in real-time. As the name suggests, the algorithm  requires only a single forward propagation through a neural network to detect  objects. This means that prediction in the entire image is done in a single algorithm  run. The CNN is used to predict various class probabilities and bounding boxes  simultaneously. 
+<p style="text-align:justify;">MIRNet introduces a novel architecture that integrates the benefits of both full-resolution processing and multi-scale feature extraction. The main branch of MIRNet is dedicated to full-resolution processing, ensuring spatial precision. Complementary parallel branches provide enhanced contextual features. The architecture employs multi-scale residual blocks containing several key elements: parallel multi-resolution convolution streams for multi-scale feature extraction, information exchange across these streams, spatial and channel attention mechanisms to capture contextual information, and attention-based multi-scale feature aggregation.</p>
 
-Compared to other region proposal classification networks (fast RCNN) which perform detection on various region proposals and thus end up performing prediction multiple times for various regions in a image, Yolo architecture is more like FCNN (fully convolutional neural network) and passes the image (N x N)  once through the FCNN and output is (M x M) prediction. This the architecture is  splitting the input image in (M x M) grid and for each grid generation 2 bounding  boxes and class probabilities for those bounding boxes. Note that bounding box is  more likely to be larger than the grid itself. 
+#### Multi-Scale Residual Block
 
-We reframe object detection as a single regression problem, straight from image  pixels to bounding box coordinates and class probabilities. A single convolutional network simultaneously predicts multiple bounding boxes  and class probabilities for those boxes. YOLO trains on full images and directly  optimizes detection performance. This unified model has several benefits over  traditional methods of object detection.  
+<p style="text-align:justify;">The multi-scale residual block is the cornerstone of MIRNet's architecture. It extracts features at multiple scales through parallel convolution streams, allowing the network to capture both fine details and broader contextual information. Information exchange across these streams ensures a comprehensive understanding of the image, while spatial and channel attention mechanisms highlight relevant features, facilitating effective feature aggregation and improved restoration quality.</p>
 
-First, YOLO is extremely fast. Since we frame detection as a regression problem,  we don’t need a complex pipeline. We simply run the neural network on a new image  at test time to predict detections. Second, YOLO reasons globally about the image when making predictions. Unlike  sliding window and region proposal-based techniques, YOLO sees the entire image  during training and test time, so it implicitly encodes contextual information about  classes as well as their appearance. Fast R-CNN, a top detection method,  mistakes background patches in an image for objects because it can’t see the larger  context. YOLO makes less than half the number of background errors compared to  Fast R-CNN. Third, YOLO learns generalizable representations of objects. When trained  on natural images and tested on artwork, YOLO outperforms top detection methods  like DPM and R-CNN by a wide margin. Since YOLO is highly generalizable it is  less likely to break down when applied to new domains or unexpected inputs. 
+### Implementation
 
-The network uses features from the entire image to predict each bounding box. It  also predicts all bounding boxes across all classes for an image simultaneously. This  means the network reasons globally about the full image and all the objects in the  image. The YOLO design enables end-to-end training and real-time speeds while  maintaining high average precision. 
+#### Full-Resolution and Multi-Scale Processing
 
-![Detection-Samples](Detection-Samples.png)
+<p style="text-align:justify;">MIRNet processes the image in full resolution through its main branch, retaining spatial details. Simultaneously, parallel branches operate at multiple scales, capturing contextual information. The integration of features from these branches results in a comprehensive restoration approach that combines spatial precision with contextual robustness.</p>
 
-<div align="center">Figure 2. YOLO Detection Samples</div>
+#### Attention Mechanisms
 
-## Dataset Description
+<p style="text-align:justify;">Spatial and channel attention mechanisms play a crucial role in MIRNet's architecture. These mechanisms enable the network to focus on important regions and features within the image, enhancing the overall restoration process. By leveraging attention mechanisms, MIRNet can effectively combine multi-scale features, resulting in high-quality restored images.</p>
 
-For the training, the Brackish Underwater Dataset is taken into account.  This is the first publicly available European underwater image dataset with bounding  box annotations of fish, crabs, and other marine organisms. It has been recorded in  Limfjorden, which is a brackish strait that runs through Aalborg in the northern part  of Denmark. The camera setup used for capturing the data consists of three cameras  and three LED lights mounted permanently on a concrete pillar of the Limfjords  bridge. However, only data from a single camera has so far been annotated and  published, but more will be added during 2019. The setup is located 9m below  surface and a single LED light has been turned on during all the recordings, which  explains some slightly odd behaviors of the animals, such as the schooling of the  sticklebacks directly in front of the camera.
+### Results and Discussion
+
+<p style="text-align:justify;">MIRNet's architecture demonstrates significant improvements in image restoration and enhancement tasks. By combining full-resolution processing with multi-scale feature extraction, the network achieves a balance between spatial precision and contextual robustness. The attention mechanisms further enhance the restoration quality, ensuring high-resolution details and enriched contextual information.</p>
+
+![](Enhancement-Samples.png)
+
+### YOLO Object Detection
+
+<p style="text-align:justify;">YOLO, an abbreviation for 'You Only Look Once,' is a cutting-edge algorithm designed for real-time object detection and recognition. By treating object detection as a regression problem, YOLO predicts class probabilities and bounding boxes with a single forward pass through a convolutional neural network (CNN). This approach enables YOLO to perform object detection efficiently and accurately, making it a preferred choice for various applications in computer vision.</p>
+
+### Methodology
+
+#### YOLO Architecture
+
+<p style="text-align:justify;">YOLO's architecture processes the entire image in a single pass, dividing it into an \(N \times N\) grid. For each grid cell, YOLO predicts multiple bounding boxes and class probabilities. This fully convolutional approach contrasts with traditional region proposal networks, which require multiple predictions for various regions in the image. YOLO's single-pass method significantly enhances detection speed and efficiency.</p>
+
+#### Regression Approach
+
+<p style="text-align:justify;">By reframing object detection as a regression problem, YOLO maps image pixels directly to bounding box coordinates and class probabilities. This global reasoning allows YOLO to capture contextual information about object classes and appearances, reducing background errors and improving detection accuracy. The network's ability to reason globally about the image context enhances its performance compared to traditional methods.</p>
+
+### Benefits of YOLO
+
+#### Speed and Efficiency
+
+<p style="text-align:justify;">YOLO's primary advantage is its speed. By processing the image in a single pass, YOLO can perform real-time object detection, making it suitable for applications requiring fast response times. The simplified detection pipeline further enhances efficiency, allowing the algorithm to handle high-resolution images and complex scenes effectively.</p>
+
+#### Global Reasoning
+
+<p style="text-align:justify;">YOLO's global reasoning capability leads to more accurate predictions. Unlike sliding window and region proposal-based techniques, YOLO considers the entire image context during both training and testing. This comprehensive approach reduces background errors and improves object localization, enabling YOLO to differentiate objects from their surroundings more effectively.</p>
+
+#### Generalization
+
+<p style="text-align:justify;">YOLO excels in learning generalizable representations of objects. When trained on natural images, YOLO outperforms other top detection methods, such as DPM and R-CNN, in diverse domains, including artwork. This robust generalization capability ensures that YOLO performs well even when applied to new and unexpected inputs, making it a versatile tool for various object detection tasks.</p>
+
+### Results
+
+<p style="text-align:justify;">YOLO utilizes features from the entire image to predict each bounding box and class probability simultaneously. This design allows the network to maintain high average precision while achieving real-time detection speeds. The ability to train and optimize on full images directly enhances the overall detection performance.</p>
+
+![](Detection-Samples.png)
+
+### Dataset Description
+
+<p style="text-align:justify;">For training YOLO, the Brackish Underwater Dataset is utilized. This dataset is the first publicly available European underwater image dataset with bounding box annotations of fish, crabs, and other marine organisms. Recorded in Limfjorden, a brackish strait in northern Denmark, the dataset offers a unique set of underwater images captured using a camera setup consisting of three cameras and three LED lights mounted on a concrete pillar of the Limfjords bridge. Currently, only data from one camera has been annotated and published, with more expected to be added. The setup, located 9 meters below the surface, operates with a single LED light during recordings, influencing the behavior of marine animals, such as the schooling of sticklebacks directly in front of the camera.</p>
+
+### Conclusion
+
+<p style="text-align:justify;">YOLO stands out as a groundbreaking object detection algorithm that combines speed, accuracy, and generalization. By treating object detection as a regression problem and leveraging a fully convolutional neural network, YOLO simplifies the detection process while enhancing performance. The use of the Brackish Underwater Dataset for training highlights YOLO's applicability to diverse environments and its potential for various real-world applications. The algorithm's ability to perform real-time detection with high precision makes it a valuable tool in the field of computer vision.</p>
+
+### Future Work
+
+<p style="text-align:justify;">Future improvements to YOLO could involve refining the network architecture to enhance detection accuracy and speed further. Exploring additional datasets and domains will also help validate and extend YOLO's capabilities. Integrating more advanced techniques, such as attention mechanisms and multi-scale feature extraction, could further boost the algorithm's performance in complex scenarios.</p>
